@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 export default function Table() {
+
+  const rowsPerPage=10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [displayedData, setDisplayedData] = useState([]);
+
+ 
+
   // State to store the response from the API for the GET request
   const [apiGetData, setApiGetData] = useState(null);
   // State to track loading status
@@ -33,6 +40,26 @@ export default function Table() {
     fetchData();
   }, []);
 
+  const items = apiGetData?.data || [];
+
+   useEffect(() => {
+    const startIdx = (currentPage - 1) * rowsPerPage;
+    const endIdx = startIdx + rowsPerPage;
+    setDisplayedData(items.slice(startIdx, endIdx));
+  }, [currentPage, items, rowsPerPage]);
+
+  const nextPage = () => {
+    if (currentPage < Math.ceil(items.length / rowsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const previousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
     <>
     <div className='flex justify-center items-center'>
@@ -51,6 +78,9 @@ export default function Table() {
           {/* Table header */}
           <thead className="text-xs text-gray-700 uppercase bg-[#aabcd0]">
             <tr>
+            <th scope="col" className="p-1">
+                ID
+              </th>
               <th scope="col" className="p-4">
                 Full name
               </th>
@@ -67,8 +97,9 @@ export default function Table() {
           </thead>
           {/* Table body */}
           <tbody>
-            {apiGetData?.data.map((item) => (
+            {displayedData.map((item) => (
               <tr key={item.id}>
+                <td className="px-2 py-2">{item.id}</td>
                 <td className="px-6 py-4">{item.attributes.full_name}</td>
                 <td className="px-6 py-4">{item.attributes.email}</td>
                 <td className="px-6 py-4">{item.attributes.hear_about}</td>
@@ -78,6 +109,25 @@ export default function Table() {
           </tbody>
         </table>
       )}
+
+
+      </div>
+
+      <div className="flex justify-between p-16 bg-[#C8E9FF]">
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={previousPage}
+          disabled={currentPage === 1}
+        >
+          Previous Page
+        </button>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={nextPage}
+          disabled={currentPage === Math.ceil(items.length / rowsPerPage)}
+        >
+          Next Page
+        </button>
       </div>
     </>
   );
