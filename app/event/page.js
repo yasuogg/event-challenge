@@ -120,7 +120,7 @@ export default function Event(){
     </div>
     </div>
     </div>
-    <Image src="/dash.png" className='hidden lg:block' width={650} height={100}/>
+    <Image src="/dash.png" className='hidden lg:block' width={700} height={50}/>
     </div>
         </>
     )
