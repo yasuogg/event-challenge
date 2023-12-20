@@ -5,8 +5,8 @@ export default function login() {
   return (
     <>
     <Logo/>
-    <div className='flex justify-around'> 
-    <div className='flex justify-center items-center lg:flex lg:justify-start lg:p-32  w-50% h-50% text-gray-500'>
+    <div className='flex justify-center lg:justify-between'> 
+    <div className='flex justify- items-center lg:flex lg:justify-start lg:pl-48  w-50% h-50% text-gray-500'>
     <div className='flex-row text-gray justify-center items-center '>
       <div className='flex-row justify-center items-center'>
       <h1 className=' text-7xl lg:text-8xl font-bold text-[#faaa1f] text-center'>Dash
@@ -25,7 +25,8 @@ export default function login() {
     </div>
     </div>
     </div>
-    <Image  src="/dash.png" className='  hidden lg:block' width={900} height={50}/>
+  
+    <Image  src="/dash1.png" className='hidden lg:block' width={650} height={100}/>
     </div>
     </>  
   )
