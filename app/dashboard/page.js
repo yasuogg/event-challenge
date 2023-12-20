@@ -5,39 +5,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 export default function Dashboard() {
-  // State to store the response from the API for the GET request
-  const [apiGetData, setApiGetData] = useState(null);
 
-  // Function to handle GET request
-  const fetchData = async () => {
-    try {
-      // API endpoint for the GET request
-      const apiUrl = 'http://localhost:1337/api/event-forms';
-
-      // Make the GET request
-      const response = await fetch(apiUrl);
-
-      // Check if the response is successful (status code 2xx)
-      if (response.ok) {
-        // Parse the response
-        const responseData = await response.json();
-
-        // Set the response data in the state
-        setApiGetData(responseData);
-      } else {
-        console.error('Error making GET request. Status:', response.status);
-      }
-    } catch (error) {
-      console.error('Error making GET request:', error);
-    }
-  };
-
-  // Fetch data on component mount (you can use useEffect for other cases)
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const items = apiGetData?.data || [];
 
   return (
     <>
@@ -52,8 +20,7 @@ export default function Dashboard() {
       <div className='flex justify-center items-center w-100% h-full p-10'>
         <div className='bg-[#0053B5] w-full h-full text-[#ffffff]'>
           <div>
-            {/* Pass items (data) directly to the EventItem component */}
-            <Table dataItem={items} />
+            <Table/>
           </div>
         </div>
       </div>
