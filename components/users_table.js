@@ -62,7 +62,7 @@ export default function Table() {
 
   return (
     <>
-    <div className='flex justify-center items-center'>
+    <div className='lg:flex overflow-x-auto justify-center items-center'>
       {loading ? (
       
 
@@ -74,7 +74,7 @@ export default function Table() {
 </div>
 
       ) : (
-        <table className="w-full text-sm text-left rtl:text-right text-white">
+        <table className=" w-full text-sm text-left rtl:text-right text-white">
           {/* Table header */}
           <thead className="text-xs text-gray-700 uppercase bg-[#aabcd0]">
             <tr>
@@ -113,7 +113,7 @@ export default function Table() {
 
       </div>
 
-      <div className="flex justify-between p-16 bg-[#C8E9FF]">
+      <div className="flex justify-between space-x-[20%] lg:space-x-[0%] pt-16 bg-[#C8E9FF]">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={previousPage}
