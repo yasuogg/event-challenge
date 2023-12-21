@@ -20,3 +20,18 @@ body {
   color:#0053B5;
   background:#C8E9FF;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+  ::-webkit-scrollbar-track {
+  background: #85b6ef; 
+}
+  ::-webkit-scrollbar-thumb {
+  background: #023064; 
+    border-radius:10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  
+  background: #555; 
+} 

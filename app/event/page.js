@@ -4,7 +4,7 @@ import Logo from "@/components/logo";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-export default function Event(){
+  const Event = () =>{
  
     // State to store form data
   const [formData, setFormData] = useState({
@@ -13,7 +13,9 @@ export default function Event(){
     hear_about: '',
     interests: '',
   });
-
+const [emailError, setEmailError] = useState('');
+  const [fullNameError, setFullNameError] = useState('');
+  const [howDidYouHearError, setHowDidYouHearError] = useState('');
   // State to store the response from the API
   const [apiResponse, setApiResponse] = useState(null);
 
@@ -28,6 +30,32 @@ export default function Event(){
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
+   // Perform email validation
+   if (!isValidEmail(formData.email)) {
+    setEmailError('Invalid email address');
+  } else {
+    setEmailError('');
+  }
+
+  // Perform full name validation
+  if (formData.full_name.trim() === '') {
+    setFullNameError('Full name cannot be empty');
+  } else {
+    setFullNameError('');
+  }
+
+  // Perform "How did you hear about the event?" validation
+  if (formData.hear_about.trim() === '') {
+    setHowDidYouHearError('Please select how you heard about the event');
+  } else {
+    setHowDidYouHearError('');
+  }
+
+  // Proceed with your form submission logic if no errors
+  if (!emailError && !fullNameError && !howDidYouHearError) {
+    // Submit the form or perform other actions
+    
+  
     e.preventDefault();
 
     try {
@@ -69,6 +97,13 @@ export default function Event(){
     } catch (error) {
       console.error('Error making POST request:', error);
     }
+  }
+  };
+
+  const isValidEmail = (email) => {
+    // Simple email validation, you may want to use a more robust validation method
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
     return(
@@ -87,6 +122,11 @@ export default function Event(){
             name="full_name"
             value={formData.full_name}
             onChange={handleInputChange} placeholder="full name" className=' duration-500	 shadow appearance-none border-2 focus:ring-blue-500 focus:border-blue-500	  w-40% text-2xl py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:text-[#0053B5] rounded-full'/>
+    {fullNameError && (
+        <p className="mt-2 text-sm text-red-600">
+          <span className="font-medium">Oh, snapp!</span> {fullNameError}
+        </p>
+      )}
     </div>
     <div className='flex-col p-1'>
     <label className='flex p-2'>Email Address</label>
@@ -94,11 +134,17 @@ export default function Event(){
             name="email"
             value={formData.email}
             onChange={handleInputChange} className=' duration-500	shadow appearance-none border-2  focus:ring-blue-500 focus:border-blue-500 text-2xl w-50% py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:text-[#0053B5] rounded-full'/>
+     {emailError && (
+        <p className="mt-2 text-sm text-red-600">
+          <span className="font-medium">Oh, snapp!</span> {emailError}
+        </p>
+      )}
     </div>
     <div className='flex-col p-1'>
     <label className='flex p-2'>How did you hear about the event?</label>
     <select  type="text"
             name="hear_about"
+            placeholder="Select"
             value={formData.hear_about}
             onChange={handleInputChange}  class=" focus:ring-blue-500 focus:border-blue-500 shadow appearance-none border-2 text-[120%] lg:text-2xl w-50% py-3 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:text-[#0053B5] rounded-full">
   <option>How did you hear about the event?</option>
@@ -106,6 +152,11 @@ export default function Event(){
   <option>How did you hear about the event?</option>
   <option>How did you hear about the event?</option>
 </select>
+{howDidYouHearError && (
+        <p className="mt-2 text-sm text-red-600">
+          <span className="font-medium">Oh, snapp!</span> {howDidYouHearError}
+        </p>
+      )}
     </div>
     <div className='flex-col p-1'>
     <label className='flex p-2'>Any specific interests or expectations for the event?</label>
@@ -125,3 +176,4 @@ export default function Event(){
         </>
     )
 }
+export default Event;
