@@ -57,7 +57,7 @@ const Home = () => {
 
       try {
         // API endpoint
-        const apiUrl = "http://localhost:1337/api/event-forms";
+        const apiUrl = `${process.env.NEXT_PUBLIC_STRAPI_URL}/event-forms`;
 
         // Data to be sent in the POST request
         const postData = {
