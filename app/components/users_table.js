@@ -17,7 +17,7 @@ export default function Table() {
   const fetchData = async () => {
     try {
       // API endpoint for the GET request
-      const apiUrl = 'http://localhost:1337/api/event-forms';
+      const apiUrl = `${process.env.NEXT_PUBLIC_STRAPI_URL}/event-formss`;
 
       // Make the GET request
       const response = await fetch(apiUrl);
