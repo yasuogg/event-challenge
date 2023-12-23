@@ -12,12 +12,13 @@ export default function Dashboard() {
 
   const logout = () => {
     unsetToken();
-    router.push("/");
+    router.push("/login");
   };
 
   if (!user) {
     router.push("/login");
   }
+
 
   return (
     <Layout user={user}>
@@ -48,3 +49,4 @@ export default function Dashboard() {
     </Layout>
   );
 }
+
